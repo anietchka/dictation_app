@@ -5,4 +5,3 @@ class ApplicationRecordTest < ActiveSupport::TestCase
     assert defined?(ApplicationRecord)
   end
 end
-
