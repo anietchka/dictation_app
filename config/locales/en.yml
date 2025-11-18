@@ -29,3 +29,39 @@
 
 en:
   hello: "Hello world"
+  application:
+    title: "Dictation App"
+    welcome: "Bienvenue sur Dictation App"
+    logged_in_as: "Vous êtes connecté en tant que :"
+  sessions:
+    require_login: "Vous devez vous connecter pour accéder à cette page"
+    login_success: "Connexion réussie"
+    logout_success: "Déconnexion réussie"
+    invalid_credentials: "Email ou mot de passe incorrect"
+    email: "Email"
+    password: "Mot de passe"
+    login: "Se connecter"
+    logout: "Se déconnecter"
+    no_account: "Pas encore de compte ?"
+    signup_link: "Créer un compte"
+  users:
+    create_success: "Compte créé avec succès"
+    email: "Email"
+    password: "Mot de passe"
+    password_confirmation: "Confirmation du mot de passe"
+    password_minimum: "Minimum 8 caractères"
+    signup: "Créer un compte"
+    already_have_account: "Déjà un compte ?"
+    login_link: "Se connecter"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "L'email ne peut pas être vide"
+              taken: "Cet email est déjà utilisé"
+              invalid: "L'email n'est pas valide"
+            password:
+              too_short: "Le mot de passe doit contenir au moins 8 caractères"
+              blank: "Le mot de passe ne peut pas être vide"
