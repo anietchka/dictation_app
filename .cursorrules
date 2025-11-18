@@ -20,6 +20,8 @@
   - Partials et helpers pour factoriser les vues.
   - Tous les modèles, fichiers doivent être en anglais
   - Ne jamais mettre de texte en dur, utiliser i18n
+  - Toujours écrire les tests
+  - Toujours verifier rubocop avant un commit
 - Pour les migrations, préférer :
   - `t.references :user, foreign_key: true`
   - types explicites (`t.string`, `t.text`, `t.jsonb`).
