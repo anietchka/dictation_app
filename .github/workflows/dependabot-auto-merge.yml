@@ -21,15 +21,86 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: Wait for status checks
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const requiredChecks = ['lint', 'test', 'system-test'];
+            const maxWaitTime = 30 * 60 * 1000; // 30 minutes
+            const checkInterval = 30 * 1000; // 30 seconds
+            const startTime = Date.now();
+
+            while (Date.now() - startTime < maxWaitTime) {
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+              });
+
+              const { data: statuses } = await github.rest.repos.getCombinedStatusForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: pr.head.sha,
+              });
+
+              const allChecksPassed = requiredChecks.every(check => {
+                const status = statuses.statuses.find(s => s.context.includes(check));
+                return status && status.state === 'success';
+              });
+
+              if (allChecksPassed && pr.mergeable && !pr.merged) {
+                console.log('All required checks passed! Ready to merge.');
+                break;
+              }
+
+              console.log('Waiting for checks to pass...', {
+                allChecksPassed,
+                mergeable: pr.mergeable,
+                merged: pr.merged,
+              });
+              await new Promise(resolve => setTimeout(resolve, checkInterval));
+            }
+
       - name: Auto-merge when checks pass
         # Skip major version updates (they need manual review)
         if: steps.metadata.outputs.update-type != 'version-update:semver-major'
-        uses: pascalgn/automerge-action@v0.17.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_STRATEGY: squash
-          MERGE_FILTERS: |
-            status-success=lint
-            status-success=test
-            status-success=system-test
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            // Check if all required status checks have passed
+            const { data: statuses } = await github.rest.repos.getCombinedStatusForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: pr.head.sha,
+            });
+
+            const requiredChecks = ['lint', 'test', 'system-test'];
+            const allChecksPassed = requiredChecks.every(check => {
+              const status = statuses.statuses.find(s => s.context.includes(check));
+              return status && status.state === 'success';
+            });
+
+            if (allChecksPassed && pr.mergeable && !pr.merged) {
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                merge_method: 'squash',
+              });
+              console.log('✅ PR merged successfully!');
+            } else {
+              console.log('❌ PR not ready to merge:', {
+                allChecksPassed,
+                mergeable: pr.mergeable,
+                merged: pr.merged,
+                statuses: statuses.statuses.map(s => ({ context: s.context, state: s.state })),
+              });
+            }
 
