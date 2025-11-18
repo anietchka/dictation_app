@@ -1,0 +1,104 @@
+# Cursor Rules – App Dictée (Rails 8 + OpenAI)
+
+## Rôle général de l’IA dans ce projet
+
+- Tu aides à développer une application Rails 8 appelée **Dictation App **.
+- L’app génère des **dictées en français** pour différents niveaux scolaires, à partir de critères (niveau, mots imposés, règles d’orthographe/grammaire).
+- Le code doit être **idiomatique Rails 8**, en privilégiant :
+  - Hotwire / Turbo / Stimulus pour l’interactivité.
+  - Postgres comme base de données.
+  - Ruby 3.3+.
+- Quand tu écris du code, fais-le **complet et exécutable** autant que possible (modèle + migration + exemple d’appel).
+
+---
+
+## Style de code et conventions
+
+- Utiliser les conventions Rails par défaut :
+  - RESTful controllers.
+  - Service objects dans `app/services` pour la logique métier qui dépasse un modèle.
+  - Partials et helpers pour factoriser les vues.
+  - Tous les modèles, fichiers doivent être en anglais
+  - Ne jamais mettre de texte en dur, utiliser i18n
+- Pour les migrations, préférer :
+  - `t.references :user, foreign_key: true`
+  - types explicites (`t.string`, `t.text`, `t.jsonb`).
+- Tests :
+  - Utiliser RSpec si un dossier `spec/` existe, sinon minitest par défaut.
+
+---
+
+## Domaines fonctionnels spécifiques
+
+### Génération de dictées
+
+- Les dictées sont représentées par un modèle `Dictation` avec, au minimum :
+  - `level` (niveau scolaire)
+  - `requested_words`
+  - `requested_rules`
+  - `content` (texte de la dictée générée)
+- Toute interaction avec l’API OpenAI doit être encapsulée dans un service dédié, par exemple :
+  - `app/services/open_ai/client.rb`
+  - `app/services/dictations/generate.rb`
+- Les prompts doivent être **clairs et structurés**, et demander systématiquement une **dictée en français** adaptée au niveau donné.
+- Ne pas mélanger la logique d’appel API dans les contrôleurs : utiliser les services.
+
+### Vocalisation (TTS)
+
+- La génération audio d’une dictée doit être isolée dans un service :
+  - `app/services/dictations/generate_audio.rb`
+- Utiliser ActiveStorage pour stocker les fichiers audio sur le modèle `Dictation`.
+
+---
+
+## UI & UX
+
+- Utiliser les layouts Rails 8 par défaut.
+- Pour les formulaires :
+  - Utiliser des `form_with` classiques (non-React).
+  - Pour les interactions dynamiques (spinner, mise à jour d’une zone de texte, etc.), utiliser Stimulus + Turbo.
+- Le texte métier de l’app (labels, boutons, messages) doit être en **français**.
+- Les commentaires de code et noms de classes/méthodes doivent rester en **anglais**.
+
+---
+
+## Interactions avec le développeur
+
+- Le développeur principal est **développeuse Rails back-end** avec Cursor Pro.
+- Quand tu proposes une solution :
+  - Toujours expliquer en quelques phrases la **logique** de ce que tu génères.
+  - Ajouter, quand c’est utile, l’**ordre d’exécution** des commandes (ex : `rails g model...`, `rails g controller...`).
+- Si une demande est ambiguë, propose une **interprétation raisonnable** et continue (ne bloque pas en posant trop de questions).
+
+---
+
+## Fichiers et dossiers spécifiques
+
+### `app/models`
+
+- Garder les modèles concis.
+- Mettre la logique métier lourde dans des services, non dans les modèles.
+
+### `app/services`
+
+- Suivre une convention simple :
+  - `Dictations::Generate` pour la génération de texte.
+  - `Dictations::GenerateAudio` pour l’audio.
+- Chaque service doit :
+  - avoir une méthode principale `call`
+  - retourner un objet simple (hash ou instance) et/ou lever une exception claire en cas d’erreur.
+
+### `app/controllers`
+
+- Les contrôleurs doivent principalement :
+  - Valider les params
+  - Appeler les services
+  - Gérer les redirections / rendu.
+
+---
+
+## Sécurité & secrets
+
+- Ne jamais écrire de clé API en dur.
+- Utiliser `ENV["OPENAI_API_KEY"]` ou une configuration similaire.
+- Rappeler, si pertinent, de configurer `.env` et la gestion des secrets Rails.
