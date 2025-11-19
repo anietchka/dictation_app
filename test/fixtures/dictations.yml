@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  min_words: 50
+  max_words: 100
+  level: CE1
+  requested_words: "chat, chien, maison"
+  requested_rules: "accord sujet-verbe"
+  content: "Le chat et le chien jouent dans la maison."
+
+two:
+  user: two
+  min_words: 100
+  max_words: 200
+  level: CE2
+  requested_words: "école, élève, professeur"
+  requested_rules: "pluriel des noms"
+  content: "Les élèves vont à l'école avec leur professeur."

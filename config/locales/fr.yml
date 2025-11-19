@@ -1,0 +1,83 @@
+# Files in the config/locales directory are used for internationalization and
+# are automatically loaded by Rails. If you want to use locales other than
+# English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more about the API, please read the Rails Internationalization guide
+# at https://guides.rubyonrails.org/i18n.html.
+#
+# Be aware that YAML interprets the following case-insensitive strings as
+# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
+# must be quoted to be interpreted as strings. For example:
+#
+#     fr:
+#       "yes": oui
+#       enabled: "ON"
+
+fr:
+  hello: "Bonjour le monde"
+  application:
+    title: "Dictation App"
+    welcome: "Bienvenue sur Dictation App"
+    logged_in_as: "Vous êtes connecté en tant que :"
+  sessions:
+    require_login: "Vous devez vous connecter pour accéder à cette page"
+    login_success: "Connexion réussie"
+    logout_success: "Déconnexion réussie"
+    invalid_credentials: "Email ou mot de passe incorrect"
+    email: "Email"
+    password: "Mot de passe"
+    login: "Se connecter"
+    logout: "Se déconnecter"
+    no_account: "Pas encore de compte ?"
+    signup_link: "Créer un compte"
+  users:
+    create_success: "Compte créé avec succès"
+    email: "Email"
+    password: "Mot de passe"
+    password_confirmation: "Confirmation du mot de passe"
+    password_minimum: "Minimum 8 caractères"
+    signup: "Créer un compte"
+    already_have_account: "Déjà un compte ?"
+    login_link: "Se connecter"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "L'email ne peut pas être vide"
+              taken: "Cet email est déjà utilisé"
+              invalid: "L'email n'est pas valide"
+            password:
+              too_short: "Le mot de passe doit contenir au moins 8 caractères"
+              blank: "Le mot de passe ne peut pas être vide"
+        dictation:
+          attributes:
+            user:
+              required: "L'utilisateur est obligatoire"
+            min_words:
+              blank: "Le nombre minimum de mots ne peut pas être vide"
+              not_a_number: "Le nombre minimum de mots doit être un nombre"
+              not_an_integer: "Le nombre minimum de mots doit être un nombre entier"
+              greater_than: "Le nombre minimum de mots doit être supérieur à 0"
+            max_words:
+              blank: "Le nombre maximum de mots ne peut pas être vide"
+              not_a_number: "Le nombre maximum de mots doit être un nombre"
+              not_an_integer: "Le nombre maximum de mots doit être un nombre entier"
+              greater_than: "Le nombre maximum de mots doit être supérieur à 0"
+              must_be_greater_than_min_words: "Le nombre maximum de mots doit être supérieur ou égal au nombre minimum de mots"
+

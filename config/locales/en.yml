@@ -31,37 +31,52 @@ en:
   hello: "Hello world"
   application:
     title: "Dictation App"
-    welcome: "Bienvenue sur Dictation App"
-    logged_in_as: "Vous êtes connecté en tant que :"
+    welcome: "Welcome to Dictation App"
+    logged_in_as: "You are logged in as:"
   sessions:
-    require_login: "Vous devez vous connecter pour accéder à cette page"
-    login_success: "Connexion réussie"
-    logout_success: "Déconnexion réussie"
-    invalid_credentials: "Email ou mot de passe incorrect"
+    require_login: "You must be logged in to access this page"
+    login_success: "Login successful"
+    logout_success: "Logout successful"
+    invalid_credentials: "Invalid email or password"
     email: "Email"
-    password: "Mot de passe"
-    login: "Se connecter"
-    logout: "Se déconnecter"
-    no_account: "Pas encore de compte ?"
-    signup_link: "Créer un compte"
+    password: "Password"
+    login: "Log in"
+    logout: "Log out"
+    no_account: "Don't have an account yet?"
+    signup_link: "Create an account"
   users:
-    create_success: "Compte créé avec succès"
+    create_success: "Account created successfully"
     email: "Email"
-    password: "Mot de passe"
-    password_confirmation: "Confirmation du mot de passe"
-    password_minimum: "Minimum 8 caractères"
-    signup: "Créer un compte"
-    already_have_account: "Déjà un compte ?"
-    login_link: "Se connecter"
+    password: "Password"
+    password_confirmation: "Password confirmation"
+    password_minimum: "Minimum 8 characters"
+    signup: "Create account"
+    already_have_account: "Already have an account?"
+    login_link: "Log in"
   activerecord:
     errors:
       models:
         user:
           attributes:
             email:
-              blank: "L'email ne peut pas être vide"
-              taken: "Cet email est déjà utilisé"
-              invalid: "L'email n'est pas valide"
+              blank: "Email can't be blank"
+              taken: "This email is already taken"
+              invalid: "Email is invalid"
             password:
-              too_short: "Le mot de passe doit contenir au moins 8 caractères"
-              blank: "Le mot de passe ne peut pas être vide"
+              too_short: "Password must contain at least 8 characters"
+              blank: "Password can't be blank"
+        dictation:
+          attributes:
+            user:
+              required: "User is required"
+            min_words:
+              blank: "Minimum number of words can't be blank"
+              not_a_number: "Minimum number of words must be a number"
+              not_an_integer: "Minimum number of words must be an integer"
+              greater_than: "Minimum number of words must be greater than 0"
+            max_words:
+              blank: "Maximum number of words can't be blank"
+              not_a_number: "Maximum number of words must be a number"
+              not_an_integer: "Maximum number of words must be an integer"
+              greater_than: "Maximum number of words must be greater than 0"
+              must_be_greater_than_min_words: "Maximum number of words must be greater than or equal to minimum number of words"
