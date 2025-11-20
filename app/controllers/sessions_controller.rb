@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to root_path, notice: t("sessions.login_success")
+      redirect_to dictations_path, notice: t("sessions.login_success")
     else
       flash.now[:alert] = t("sessions.invalid_credentials")
       render :new, status: :unprocessable_entity

@@ -11,7 +11,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       post users_path, params: { user: { email: "newuser@example.com", password: "password123", password_confirmation: "password123" } }
     end
 
-    assert_redirected_to root_path
+    assert_redirected_to dictations_path
     assert_not_nil session[:user_id]
   end
 
