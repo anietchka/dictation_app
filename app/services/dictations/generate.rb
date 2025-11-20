@@ -52,6 +52,17 @@ module Dictations
         prompt_parts << word_count_text
       end
 
+      if @dictation.min_sentences.present? || @dictation.max_sentences.present?
+        sentence_count_text = if @dictation.min_sentences.present? && @dictation.max_sentences.present?
+                                I18n.t("dictations.generate.user_prompt_sentence_count_between", min_sentences: @dictation.min_sentences, max_sentences: @dictation.max_sentences)
+        elsif @dictation.min_sentences.present?
+                                I18n.t("dictations.generate.user_prompt_sentence_count_min", min_sentences: @dictation.min_sentences)
+        else
+                                I18n.t("dictations.generate.user_prompt_sentence_count_max", max_sentences: @dictation.max_sentences)
+        end
+        prompt_parts << sentence_count_text
+      end
+
       if @dictation.requested_words.present?
         words = @dictation.requested_words.split(",").map(&:strip).join(", ")
         prompt_parts << I18n.t("dictations.generate.user_prompt_requested_words", words: words)

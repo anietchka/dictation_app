@@ -20,6 +20,16 @@
       <span class="ml-2"><%= @dictation.max_words || "-" %></span>
     </div>
 
+    <div>
+      <span class="font-medium"><%= t("dictations.show.min_sentences") %>:</span>
+      <span class="ml-2"><%= @dictation.min_sentences || "-" %></span>
+    </div>
+
+    <div>
+      <span class="font-medium"><%= t("dictations.show.max_sentences") %>:</span>
+      <span class="ml-2"><%= @dictation.max_sentences || "-" %></span>
+    </div>
+
     <% if @dictation.requested_words.present? %>
       <div>
         <span class="font-medium"><%= t("dictations.show.requested_words") %>:</span>

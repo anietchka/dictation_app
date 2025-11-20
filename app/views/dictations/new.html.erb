@@ -28,6 +28,16 @@
     </div>
 
     <div>
+      <%= form.label :min_sentences, t("dictations.new.min_sentences"), class: "block text-sm font-medium mb-1" %>
+      <%= form.number_field :min_sentences, min: 1, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+    </div>
+
+    <div>
+      <%= form.label :max_sentences, t("dictations.new.max_sentences"), class: "block text-sm font-medium mb-1" %>
+      <%= form.number_field :max_sentences, min: 1, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+    </div>
+
+    <div>
       <%= form.label :requested_words, t("dictations.new.requested_words"), class: "block text-sm font-medium mb-1" %>
       <%= form.text_area :requested_words, rows: 3, placeholder: "ex: maison, école, jardin", class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
     </div>

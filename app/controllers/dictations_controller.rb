@@ -43,7 +43,7 @@ class DictationsController < ApplicationController
   end
 
   def dictation_params
-    params.require(:dictation).permit(:level, :min_words, :max_words, :requested_words, :requested_rules)
+    params.require(:dictation).permit(:level, :min_words, :max_words, :min_sentences, :max_sentences, :requested_words, :requested_rules)
   end
 
   def generate_dictation_content
