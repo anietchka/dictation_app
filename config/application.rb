@@ -21,6 +21,10 @@ module DictationApp
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
+    # Set default locale to French
+    config.i18n.default_locale = :fr
+    config.i18n.available_locales = [ :fr, :en ]
+    #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
   end

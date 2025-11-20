@@ -29,3 +29,103 @@
 
 en:
   hello: "Hello world"
+  application:
+    title: "Dictation App"
+    welcome: "Welcome to Dictation App"
+    logged_in_as: "You are logged in as:"
+  sessions:
+    require_login: "You must be logged in to access this page"
+    login_success: "Login successful"
+    logout_success: "Logout successful"
+    invalid_credentials: "Invalid email or password"
+    email: "Email"
+    password: "Password"
+    login: "Log in"
+    logout: "Log out"
+    no_account: "Don't have an account yet?"
+    signup_link: "Create an account"
+  users:
+    create_success: "Account created successfully"
+    email: "Email"
+    password: "Password"
+    password_confirmation: "Password confirmation"
+    password_minimum: "Minimum 8 characters"
+    signup: "Create account"
+    already_have_account: "Already have an account?"
+    login_link: "Log in"
+  dictations:
+    index:
+      title: "My Dictations"
+      new_dictation: "New Dictation"
+      no_dictations: "No dictations yet"
+      level: "Level"
+      min_words: "Min words"
+      max_words: "Max words"
+      created_at: "Created at"
+      actions: "Actions"
+      view: "View"
+    new:
+      title: "New Dictation"
+      level: "Level"
+      min_words: "Minimum number of words"
+      max_words: "Maximum number of words"
+      requested_words: "Required words (comma-separated)"
+      requested_rules: "Spelling/grammar rules"
+      create: "Create Dictation"
+      cancel: "Cancel"
+      select_level: "Select a level"
+    levels:
+      CP: "CP"
+      CE1: "CE1"
+      CE2: "CE2"
+      CM1: "CM1"
+      CM2: "CM2"
+      "6ème": "6th grade"
+      "5ème": "7th grade"
+      "4ème": "8th grade"
+      "3ème": "9th grade"
+      "2nde": "10th grade"
+      "1ère": "11th grade"
+      Terminale: "12th grade"
+      "Études supérieures": "Higher education"
+    show:
+      title: "Dictation"
+      level: "Level"
+      min_words: "Minimum number of words"
+      max_words: "Maximum number of words"
+      requested_words: "Required words"
+      requested_rules: "Spelling/grammar rules"
+      content: "Content"
+      content_not_generated: "Not generated"
+      back: "Back to list"
+      created_at: "Created at"
+      updated_at: "Updated at"
+    create_success: "Dictation created successfully"
+    not_found: "Dictation not found"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Email can't be blank"
+              taken: "This email is already taken"
+              invalid: "Email is invalid"
+            password:
+              too_short: "Password must contain at least 8 characters"
+              blank: "Password can't be blank"
+        dictation:
+          attributes:
+            user:
+              required: "User is required"
+            min_words:
+              blank: "Minimum number of words can't be blank"
+              not_a_number: "Minimum number of words must be a number"
+              not_an_integer: "Minimum number of words must be an integer"
+              greater_than: "Minimum number of words must be greater than 0"
+            max_words:
+              blank: "Maximum number of words can't be blank"
+              not_a_number: "Maximum number of words must be a number"
+              not_an_integer: "Maximum number of words must be an integer"
+              greater_than: "Maximum number of words must be greater than 0"
+              must_be_greater_than_min_words: "Maximum number of words must be greater than or equal to minimum number of words"

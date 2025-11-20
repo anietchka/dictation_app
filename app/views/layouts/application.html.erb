@@ -1,18 +1,21 @@
 <!DOCTYPE html>
+
 <html>
   <head>
-    <title><%= content_for(:title) || "Dictation App" %></title>
+    <title><%= content_for(:title) || t("application.title") %></title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Dictation App">
+    <meta name="application-name" content="<%= t("application.title") %>">
     <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%# = tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -24,8 +27,54 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+    <nav class="bg-white shadow-sm border-b">
+      <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold">
+          <%= link_to t("application.title"), root_path, class: "text-blue-600" %>
+        </div>
+
+        <div class="flex gap-4 items-center">
+          <div class="flex gap-2">
+            <%= link_to locale_path(:fr), data: { turbo_method: :patch }, class: "text-2xl hover:opacity-70 #{'opacity-50' if I18n.locale == :en}" do %>
+              🇫🇷
+            <% end %>
+            <%= link_to locale_path(:en), data: { turbo_method: :patch }, class: "text-2xl hover:opacity-70 #{'opacity-50' if I18n.locale == :fr}" do %>
+              🇬🇧
+            <% end %>
+          </div>
+          <% if current_user %>
+            <span class="text-gray-600"><%= current_user.email %></span>
+            <%= button_to t("sessions.logout"), logout_path, method: :delete, class: "text-blue-600 hover:underline" %>
+          <% else %>
+            <%= link_to t("sessions.login"), new_session_path, class: "text-blue-600 hover:underline" %>
+            <%= link_to t("users.signup"), new_user_path, class: "text-blue-600 hover:underline" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice %>
+      <div
+        class="
+          bg-green-50 border border-green-200 text-green-700 px-4 py-3
+          mx-auto container mt-4 rounded
+        "
+      >
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div
+        class="
+          bg-red-50 border border-red-200 text-red-700 px-4 py-3 mx-auto
+          container mt-4 rounded
+        "
+      >
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <main class="container mx-auto mt-8 px-5"><%= yield %></main>
   </body>
 </html>
