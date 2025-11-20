@@ -102,6 +102,25 @@ fr:
       updated_at: "Modifiée le"
     create_success: "Dictée créée avec succès"
     not_found: "Dictée introuvable"
+    generate_error: "Erreur lors de la génération du contenu : %{error}"
+    generate:
+      system_prompt: "Tu es un expert en pédagogie française spécialisé dans la création de dictées adaptées aux différents niveaux scolaires. Tu crées des textes de dictée en français, adaptés au niveau scolaire demandé, avec un vocabulaire et une complexité appropriés. Les dictées doivent être cohérentes, intéressantes et pédagogiquement pertinentes. IMPORTANT : Tu dois retourner UNIQUEMENT le texte de la dictée, sans aucune explication, sans introduction, sans conclusion, sans commentaire. Juste le texte brut de la dictée."
+      user_prompt_level: "Génère une dictée en français pour le niveau : %{level}."
+      user_prompt_word_count_between: "La dictée doit contenir entre %{min_words} et %{max_words} mots."
+      user_prompt_word_count_min: "La dictée doit contenir au moins %{min_words} mots."
+      user_prompt_word_count_max: "La dictée doit contenir au plus %{max_words} mots."
+      user_prompt_requested_words: "Les mots suivants doivent être inclus dans la dictée : %{words}."
+      user_prompt_requested_rules: "La dictée doit mettre en pratique les règles suivantes : %{rules}."
+      user_prompt_final: "Le texte doit être cohérent, adapté au niveau scolaire et prêt à être dicté. Retourne UNIQUEMENT le texte de la dictée, sans aucune explication ni commentaire."
+  open_ai:
+    errors:
+      api_key_required: "Clé API OpenAI requise"
+      invalid_api_key: "Clé API invalide"
+      rate_limit_exceeded: "Limite de débit dépassée. Veuillez réessayer plus tard."
+      server_error: "Erreur du serveur OpenAI. Veuillez réessayer plus tard."
+      unknown_error: "Erreur inconnue"
+      api_error: "Erreur API OpenAI : %{message}"
+      no_content: "Aucun contenu dans la réponse"
   activerecord:
     errors:
       models:
