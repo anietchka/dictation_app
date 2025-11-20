@@ -14,6 +14,18 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
     )
     # Clear any existing session
     delete logout_path rescue nil
+    # Set a dummy API key for tests to avoid errors
+    ENV["OPENAI_API_KEY"] = "test-key" unless ENV["OPENAI_API_KEY"]
+  end
+
+  def stub_generate_service(result = { success: true, content: "Generated dictation content" })
+    original_new = Dictations::Generate.method(:new)
+    mock_service = Object.new
+    mock_service.define_singleton_method(:call) { result }
+    Dictations::Generate.define_singleton_method(:new) { |*| mock_service }
+    yield
+  ensure
+    Dictations::Generate.define_singleton_method(:new, original_new) if original_new
   end
 
   test "should get index when logged in" do
@@ -42,16 +54,18 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
   test "should create dictation with valid attributes" do
     post sessions_path, params: { email: @user.email, password: "password123" }
 
-    assert_difference "Dictation.count", 1 do
-      post dictations_path, params: {
-        dictation: {
-          level: "CE2",
-          min_words: 75,
-          max_words: 150,
-          requested_words: "jardin, fleur",
-          requested_rules: "pluriel des noms"
+    stub_generate_service do
+      assert_difference "Dictation.count", 1 do
+        post dictations_path, params: {
+          dictation: {
+            level: "CE2",
+            min_words: 75,
+            max_words: 150,
+            requested_words: "jardin, fleur",
+            requested_rules: "pluriel des noms"
+          }
         }
-      }
+      end
     end
 
     assert_redirected_to dictation_path(Dictation.last)
@@ -61,12 +75,14 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
   test "should create dictation without optional fields" do
     post sessions_path, params: { email: @user.email, password: "password123" }
 
-    assert_difference "Dictation.count", 1 do
-      post dictations_path, params: {
-        dictation: {
-          level: "CE2"
+    stub_generate_service do
+      assert_difference "Dictation.count", 1 do
+        post dictations_path, params: {
+          dictation: {
+            level: "CE2"
+          }
         }
-      }
+      end
     end
 
     assert_redirected_to dictation_path(Dictation.last)
@@ -83,6 +99,24 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
           max_words: 50
         }
       }
+    end
+
+    assert_response :unprocessable_entity
+  end
+
+  test "should not create dictation if generation fails" do
+    post sessions_path, params: { email: @user.email, password: "password123" }
+
+    stub_generate_service({ success: false, error: "API error" }) do
+      assert_no_difference "Dictation.count" do
+        post dictations_path, params: {
+          dictation: {
+            level: "CE2",
+            min_words: 75,
+            max_words: 150
+          }
+        }
+      end
     end
 
     assert_response :unprocessable_entity
@@ -120,13 +154,15 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
   test "should not allow creating dictation for another user even with user_id in params" do
     post sessions_path, params: { email: @user.email, password: "password123" }
 
-    assert_difference "Dictation.count", 1 do
-      post dictations_path, params: {
-        dictation: {
-          level: "CE2",
-          user_id: @other_user.id
+    stub_generate_service do
+      assert_difference "Dictation.count", 1 do
+        post dictations_path, params: {
+          dictation: {
+            level: "CE2",
+            user_id: @other_user.id
+          }
         }
-      }
+      end
     end
 
     # Should create dictation for current_user, not other_user

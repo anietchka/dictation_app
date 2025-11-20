@@ -102,6 +102,25 @@ en:
       updated_at: "Updated at"
     create_success: "Dictation created successfully"
     not_found: "Dictation not found"
+    generate_error: "Error generating content: %{error}"
+    generate:
+      system_prompt: "You are a French pedagogy expert specialized in creating dictations adapted to different school levels. You create dictation texts in French, adapted to the requested school level, with appropriate vocabulary and complexity. Dictations must be coherent, interesting and pedagogically relevant. IMPORTANT: You must return ONLY the dictation text, without any explanation, without introduction, without conclusion, without comment. Just the raw text of the dictation."
+      user_prompt_level: "Generate a dictation in French for the level: %{level}."
+      user_prompt_word_count_between: "The dictation must contain between %{min_words} and %{max_words} words."
+      user_prompt_word_count_min: "The dictation must contain at least %{min_words} words."
+      user_prompt_word_count_max: "The dictation must contain at most %{max_words} words."
+      user_prompt_requested_words: "The following words must be included in the dictation: %{words}."
+      user_prompt_requested_rules: "The dictation must practice the following rules: %{rules}."
+      user_prompt_final: "The text must be coherent, adapted to the school level and ready to be dictated. Return ONLY the dictation text, without any explanation or comment."
+  open_ai:
+    errors:
+      api_key_required: "OpenAI API key is required"
+      invalid_api_key: "Invalid API key"
+      rate_limit_exceeded: "Rate limit exceeded. Please try again later."
+      server_error: "OpenAI server error. Please try again later."
+      unknown_error: "Unknown error"
+      api_error: "OpenAI API error: %{message}"
+      no_content: "No content in response"
   activerecord:
     errors:
       models:
