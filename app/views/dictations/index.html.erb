@@ -1,30 +1,30 @@
 <div class="w-full">
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold"><%= t("dictations.index.title") %></h1>
-    <%= link_to t("dictations.index.new_dictation"), new_dictation_path, class: "bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700" %>
+    <%= link_to t("dictations.index.new_dictation"), new_dictation_path, class: "bg-[#3A7BD5] text-white py-2 px-4 rounded-md hover:bg-[#2d6bb8] transition-colors" %>
   </div>
 
   <% if @dictations.any? %>
     <div class="overflow-x-auto">
-      <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-        <thead class="bg-gray-50">
+      <table class="min-w-full bg-white border border-[#E0E7EF] rounded-md shadow-sm">
+        <thead class="bg-white">
           <tr>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase"><%= t("dictations.index.level") %></th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase"><%= t("dictations.index.min_words") %></th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase"><%= t("dictations.index.max_words") %></th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase"><%= t("dictations.index.created_at") %></th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase"><%= t("dictations.index.actions") %></th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-[#777777] uppercase"><%= t("dictations.index.level") %></th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-[#777777] uppercase"><%= t("dictations.index.min_words") %></th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-[#777777] uppercase"><%= t("dictations.index.max_words") %></th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-[#777777] uppercase"><%= t("dictations.index.created_at") %></th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-[#777777] uppercase"><%= t("dictations.index.actions") %></th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200">
+        <tbody class="divide-y divide-[#E0E7EF]">
           <% @dictations.each do |dictation| %>
-            <tr class="hover:bg-gray-50">
-              <td class="px-4 py-3 text-sm"><%= dictation.level || "-" %></td>
-              <td class="px-4 py-3 text-sm"><%= dictation.min_words || "-" %></td>
-              <td class="px-4 py-3 text-sm"><%= dictation.max_words || "-" %></td>
-              <td class="px-4 py-3 text-sm"><%= dictation.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+            <tr class="hover:bg-[#F7F9FC]">
+              <td class="px-4 py-3 text-sm text-[#333333]"><%= dictation.level || "-" %></td>
+              <td class="px-4 py-3 text-sm text-[#333333]"><%= dictation.min_words || "-" %></td>
+              <td class="px-4 py-3 text-sm text-[#333333]"><%= dictation.max_words || "-" %></td>
+              <td class="px-4 py-3 text-sm text-[#333333]"><%= dictation.created_at.strftime("%d/%m/%Y %H:%M") %></td>
               <td class="px-4 py-3 text-sm">
-                <%= link_to t("dictations.index.view"), dictation_path(dictation), class: "text-blue-600 hover:underline" %>
+                <%= link_to t("dictations.index.view"), dictation_path(dictation), class: "text-[#3A7BD5] hover:underline" %>
               </td>
             </tr>
           <% end %>
@@ -32,8 +32,8 @@
       </table>
     </div>
   <% else %>
-    <div class="text-center py-12 bg-gray-50 rounded-lg">
-      <p class="text-gray-500"><%= t("dictations.index.no_dictations") %></p>
+    <div class="text-center py-12 bg-white rounded-md border border-[#E0E7EF] shadow-sm">
+      <p class="text-[#777777]"><%= t("dictations.index.no_dictations") %></p>
     </div>
   <% end %>
 </div>

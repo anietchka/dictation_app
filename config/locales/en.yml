@@ -30,8 +30,8 @@
 en:
   hello: "Hello world"
   application:
-    title: "Dictation App"
-    welcome: "Welcome to Dictation App"
+    title: "Dictio"
+    welcome: "Welcome to Dictio"
     logged_in_as: "You are logged in as:"
   sessions:
     require_login: "You must be logged in to access this page"
