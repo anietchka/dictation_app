@@ -47,39 +47,33 @@
 
         <div class="flex gap-4 items-center">
           <div data-controller="locale-selector" class="relative">
-            <select
-              data-action="change->locale-selector#change"
+            <button
+              type="button"
+              data-action="click->locale-selector#toggle"
+              class="text-2xl cursor-pointer hover:opacity-80 transition-opacity"
+            >
+              <%= locale_flag(I18n.locale) %>
+            </button>
+
+            <div
+              data-locale-selector-target="menu"
               class="
-                appearance-none bg-white border border-[#D5DCE5] rounded-md
-                px-2 py-2 pr-6 text-xl focus:ring-2 focus:ring-[#3A7BD5]
-                focus:border-[#3A7BD5] cursor-pointer
+                hidden absolute right-0 mt-2 bg-white border
+                border-[#E0E7EF] rounded-md shadow-sm py-1 z-10
               "
             >
               <% I18n.available_locales.each do |locale| %>
-                <option
-                  value="<%= locale %>"
-                  <%= 'selected' if I18n.locale == locale %>
-                >
-                  <%= locale_flag(locale) %>
-                </option>
+                <% unless locale == I18n.locale %>
+                  <button
+                    type="button"
+                    data-action="click->locale-selector#change"
+                    data-locale-selector-locale-param="<%= locale %>"
+                    class="block w-full text-left px-4 py-2 text-2xl hover:bg-[#F7F9FC]"
+                  >
+                    <%= locale_flag(locale) %>
+                  </button>
+                <% end %>
               <% end %>
-            </select>
-
-            <div
-              class="
-                pointer-events-none absolute inset-y-0 right-0 flex
-                items-center px-1 text-[#333333]
-              "
-            >
-              <svg
-                class="fill-current h-3 w-3"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                />
-              </svg>
             </div>
           </div>
 
