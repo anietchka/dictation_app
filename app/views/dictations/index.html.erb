@@ -15,7 +15,7 @@
                 uppercase
               "
             >
-              <%= t("dictations.index.name") %>
+              <%= sortable_column("name", t("dictations.index.name"), @sort_by, @direction) %>
             </th>
 
             <th
@@ -24,7 +24,7 @@
                 uppercase
               "
             >
-              <%= t("dictations.index.level") %>
+              <%= sortable_column("level", t("dictations.index.level"), @sort_by, @direction) %>
             </th>
 
             <th
@@ -33,7 +33,7 @@
                 uppercase
               "
             >
-              <%= t("dictations.index.created_at") %>
+              <%= sortable_column("created_at", t("dictations.index.created_at"), @sort_by, @direction) %>
             </th>
           </tr>
         </thead>

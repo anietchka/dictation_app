@@ -2,7 +2,22 @@ class DictationsController < ApplicationController
   before_action :set_dictation, only: [ :show ]
 
   def index
-    @dictations = Dictation.for_user(current_user).order(created_at: :desc)
+    @dictations = Dictation.for_user(current_user)
+
+    sort_by = params[:sort_by] || "created_at"
+    direction = params[:direction] || "desc"
+
+    # Valider les paramètres de tri
+    allowed_sort_columns = %w[name level created_at]
+    allowed_directions = %w[asc desc]
+
+    sort_by = "created_at" unless allowed_sort_columns.include?(sort_by)
+    direction = "desc" unless allowed_directions.include?(direction)
+
+    @sort_by = sort_by
+    @direction = direction
+
+    @dictations = @dictations.order(sort_by => direction)
   end
 
   def new
