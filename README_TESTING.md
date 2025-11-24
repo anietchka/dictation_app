@@ -83,3 +83,4 @@ tail -f log/development.log
 - Ne jamais commiter votre clé API dans le dépôt
 - Si la génération échoue, la dictée ne sera **pas créée** (comportement attendu)
 
+

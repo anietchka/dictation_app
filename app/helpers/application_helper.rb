@@ -16,4 +16,12 @@ module ApplicationHelper
       "Études supérieures"
     ]
   end
+
+  def locale_flag(locale)
+    flags = {
+      fr: "🇫🇷",
+      en: "🇬🇧"
+    }
+    flags[locale.to_sym] || "🌐"
+  end
 end

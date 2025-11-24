@@ -33,6 +33,9 @@ en:
     title: "Dictio"
     welcome: "Welcome to Dictio"
     logged_in_as: "You are logged in as:"
+  languages:
+    fr: "French"
+    en: "English"
   sessions:
     require_login: "You must be logged in to access this page"
     login_success: "Login successful"
@@ -46,6 +49,8 @@ en:
     signup_link: "Create an account"
   users:
     create_success: "Account created successfully"
+    update_success: "Profile updated successfully"
+    edit_profile: "Edit my profile"
     email: "Email"
     password: "Password"
     password_confirmation: "Password confirmation"
@@ -53,6 +58,11 @@ en:
     signup: "Create account"
     already_have_account: "Already have an account?"
     login_link: "Log in"
+    edit:
+      title: "Edit my profile"
+      update: "Update"
+      cancel: "Cancel"
+      password_optional: "leave blank to keep current password"
   dictations:
     index:
       title: "My Dictations"
@@ -76,6 +86,12 @@ en:
       create: "Create Dictation"
       cancel: "Cancel"
       select_level: "Select a level"
+      add_min_words: "Add minimum number of words"
+      add_max_words: "Add maximum number of words"
+      add_min_sentences: "Add minimum number of sentences"
+      add_max_sentences: "Add maximum number of sentences"
+      add_requested_words: "Add required words"
+      add_requested_rules: "Add spelling/grammar rules"
     levels:
       CP: "CP"
       CE1: "CE1"

@@ -33,6 +33,9 @@ fr:
     title: "Dictio"
     welcome: "Bienvenue sur Dictio"
     logged_in_as: "Vous êtes connecté en tant que :"
+  languages:
+    fr: "Français"
+    en: "Anglais"
   sessions:
     require_login: "Vous devez vous connecter pour accéder à cette page"
     login_success: "Connexion réussie"
@@ -46,6 +49,8 @@ fr:
     signup_link: "Créer un compte"
   users:
     create_success: "Compte créé avec succès"
+    update_success: "Profil mis à jour avec succès"
+    edit_profile: "Éditer mon profil"
     email: "Email"
     password: "Mot de passe"
     password_confirmation: "Confirmation du mot de passe"
@@ -53,6 +58,11 @@ fr:
     signup: "Créer un compte"
     already_have_account: "Déjà un compte ?"
     login_link: "Se connecter"
+    edit:
+      title: "Éditer mon profil"
+      update: "Mettre à jour"
+      cancel: "Annuler"
+      password_optional: "laisser vide pour ne pas changer"
   dictations:
     index:
       title: "Mes dictées"
@@ -76,6 +86,12 @@ fr:
       create: "Créer la dictée"
       cancel: "Annuler"
       select_level: "Sélectionner un niveau"
+      add_min_words: "Ajouter nombre minimum de mots"
+      add_max_words: "Ajouter nombre maximum de mots"
+      add_min_sentences: "Ajouter nombre minimum de phrases"
+      add_max_sentences: "Ajouter nombre maximum de phrases"
+      add_requested_words: "Ajouter mots imposés"
+      add_requested_rules: "Ajouter règles d'orthographe/grammaire"
     levels:
       CP: "CP"
       CE1: "CE1"

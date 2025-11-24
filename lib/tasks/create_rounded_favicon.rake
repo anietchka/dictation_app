@@ -58,4 +58,3 @@ namespace :assets do
     end
   end
 end
-

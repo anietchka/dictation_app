@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # Authentication routes
   get "signup", to: "users#new", as: :new_user
   post "signup", to: "users#create", as: :users
+  get "profile/edit", to: "users#edit", as: :edit_user
+  patch "profile", to: "users#update", as: :user
   get "login", to: "sessions#new", as: :new_session
   post "login", to: "sessions#create", as: :sessions
   delete "logout", to: "sessions#destroy", as: :logout

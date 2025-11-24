@@ -5,30 +5,40 @@
   </div>
 
   <div class="bg-white border border-[#E0E7EF] rounded-md shadow-sm p-6 space-y-4">
-    <div>
-      <span class="font-medium"><%= t("dictations.show.level") %>:</span>
-      <span class="ml-2"><%= @dictation.level || "-" %></span>
-    </div>
+    <% if @dictation.level.present? %>
+      <div>
+        <span class="font-medium"><%= t("dictations.show.level") %>:</span>
+        <span class="ml-2"><%= @dictation.level %></span>
+      </div>
+    <% end %>
 
-    <div>
-      <span class="font-medium"><%= t("dictations.show.min_words") %>:</span>
-      <span class="ml-2"><%= @dictation.min_words || "-" %></span>
-    </div>
+    <% if @dictation.min_words.present? %>
+      <div>
+        <span class="font-medium"><%= t("dictations.show.min_words") %>:</span>
+        <span class="ml-2"><%= @dictation.min_words %></span>
+      </div>
+    <% end %>
 
-    <div>
-      <span class="font-medium"><%= t("dictations.show.max_words") %>:</span>
-      <span class="ml-2"><%= @dictation.max_words || "-" %></span>
-    </div>
+    <% if @dictation.max_words.present? %>
+      <div>
+        <span class="font-medium"><%= t("dictations.show.max_words") %>:</span>
+        <span class="ml-2"><%= @dictation.max_words %></span>
+      </div>
+    <% end %>
 
-    <div>
-      <span class="font-medium"><%= t("dictations.show.min_sentences") %>:</span>
-      <span class="ml-2"><%= @dictation.min_sentences || "-" %></span>
-    </div>
+    <% if @dictation.min_sentences.present? %>
+      <div>
+        <span class="font-medium"><%= t("dictations.show.min_sentences") %>:</span>
+        <span class="ml-2"><%= @dictation.min_sentences %></span>
+      </div>
+    <% end %>
 
-    <div>
-      <span class="font-medium"><%= t("dictations.show.max_sentences") %>:</span>
-      <span class="ml-2"><%= @dictation.max_sentences || "-" %></span>
-    </div>
+    <% if @dictation.max_sentences.present? %>
+      <div>
+        <span class="font-medium"><%= t("dictations.show.max_sentences") %>:</span>
+        <span class="ml-2"><%= @dictation.max_sentences %></span>
+      </div>
+    <% end %>
 
     <% if @dictation.requested_words.present? %>
       <div>
