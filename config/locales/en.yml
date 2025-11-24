@@ -68,6 +68,7 @@ en:
       title: "My Dictations"
       new_dictation: "New Dictation"
       no_dictations: "No dictations yet"
+      name: "Name"
       level: "Level"
       min_words: "Min words"
       max_words: "Max words"
@@ -76,6 +77,7 @@ en:
       view: "View"
     new:
       title: "New Dictation"
+      name: "Dictation name"
       level: "Level"
       min_words: "Minimum number of words"
       max_words: "Maximum number of words"

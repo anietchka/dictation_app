@@ -1,6 +1,7 @@
 class Dictation < ApplicationRecord
   belongs_to :user
 
+  validates :name, presence: true
   validates :min_words, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
   validates :max_words, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
   validates :min_sentences, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true

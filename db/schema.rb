@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_20_103451) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_24_131618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_20_103451) do
     t.integer "max_words"
     t.integer "min_sentences"
     t.integer "min_words"
+    t.string "name", null: false
     t.text "requested_rules"
     t.text "requested_words"
     t.datetime "updated_at", null: false

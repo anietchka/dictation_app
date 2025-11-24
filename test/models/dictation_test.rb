@@ -8,12 +8,24 @@ class DictationTest < ActiveSupport::TestCase
   test "should create dictation with valid attributes" do
     dictation = Dictation.new(
       user: @user,
+      name: "Ma première dictée",
       min_words: 50,
       max_words: 100,
       level: "CE1"
     )
     assert dictation.valid?
     assert dictation.save
+  end
+
+  test "should not create dictation without name" do
+    dictation = Dictation.new(
+      user: @user,
+      min_words: 50,
+      max_words: 100,
+      level: "CE1"
+    )
+    assert_not dictation.valid?
+    assert dictation.errors[:name].any?
   end
 
   test "should not create dictation without user" do
@@ -23,55 +35,55 @@ class DictationTest < ActiveSupport::TestCase
   end
 
   test "should create dictation without min_words" do
-    dictation = Dictation.new(user: @user, max_words: 100)
+    dictation = Dictation.new(user: @user, name: "Dictée sans min", max_words: 100)
     assert dictation.valid?
     assert dictation.save
   end
 
   test "should create dictation without max_words" do
-    dictation = Dictation.new(user: @user, min_words: 50)
+    dictation = Dictation.new(user: @user, name: "Dictée sans max", min_words: 50)
     assert dictation.valid?
     assert dictation.save
   end
 
   test "should create dictation without min_words and max_words" do
-    dictation = Dictation.new(user: @user)
+    dictation = Dictation.new(user: @user, name: "Dictée simple")
     assert dictation.valid?
     assert dictation.save
   end
 
   test "should not create dictation with min_words less than or equal to zero" do
-    dictation = Dictation.new(user: @user, min_words: 0, max_words: 100)
+    dictation = Dictation.new(user: @user, name: "Dictée test", min_words: 0, max_words: 100)
     assert_not dictation.valid?
     assert_includes dictation.errors[:min_words], I18n.t("activerecord.errors.models.dictation.attributes.min_words.greater_than")
   end
 
   test "should not create dictation with max_words less than or equal to zero" do
-    dictation = Dictation.new(user: @user, min_words: 50, max_words: 0)
+    dictation = Dictation.new(user: @user, name: "Dictée test", min_words: 50, max_words: 0)
     assert_not dictation.valid?
     assert_includes dictation.errors[:max_words], I18n.t("activerecord.errors.models.dictation.attributes.max_words.greater_than")
   end
 
   test "should not create dictation with max_words less than min_words" do
-    dictation = Dictation.new(user: @user, min_words: 100, max_words: 50)
+    dictation = Dictation.new(user: @user, name: "Dictée test", min_words: 100, max_words: 50)
     assert_not dictation.valid?
     assert_includes dictation.errors[:max_words], I18n.t("activerecord.errors.models.dictation.attributes.max_words.must_be_greater_than_min_words")
   end
 
   test "should create dictation with max_words equal to min_words" do
-    dictation = Dictation.new(user: @user, min_words: 50, max_words: 50)
+    dictation = Dictation.new(user: @user, name: "Dictée test", min_words: 50, max_words: 50)
     assert dictation.valid?
     assert dictation.save
   end
 
   test "should not create dictation with non-integer min_words" do
-    dictation = Dictation.new(user: @user, min_words: 50.5, max_words: 100)
+    dictation = Dictation.new(user: @user, name: "Dictée test", min_words: 50.5, max_words: 100)
     assert_not dictation.valid?
     assert_includes dictation.errors[:min_words], I18n.t("activerecord.errors.models.dictation.attributes.min_words.not_an_integer")
   end
 
   test "should not create dictation with non-integer max_words" do
-    dictation = Dictation.new(user: @user, min_words: 50, max_words: 100.5)
+    dictation = Dictation.new(user: @user, name: "Dictée test", min_words: 50, max_words: 100.5)
     assert_not dictation.valid?
     assert_includes dictation.errors[:max_words], I18n.t("activerecord.errors.models.dictation.attributes.max_words.not_an_integer")
   end
@@ -80,9 +92,9 @@ class DictationTest < ActiveSupport::TestCase
     user1 = User.create!(email: "scope_user1@example.com", password: "password123", password_confirmation: "password123")
     user2 = User.create!(email: "scope_user2@example.com", password: "password123", password_confirmation: "password123")
 
-    dictation1 = Dictation.create!(user: user1, min_words: 50, max_words: 100)
-    dictation2 = Dictation.create!(user: user2, min_words: 50, max_words: 100)
-    dictation3 = Dictation.create!(user: user1, min_words: 100, max_words: 200)
+    dictation1 = Dictation.create!(user: user1, name: "Dictée 1", min_words: 50, max_words: 100)
+    dictation2 = Dictation.create!(user: user2, name: "Dictée 2", min_words: 50, max_words: 100)
+    dictation3 = Dictation.create!(user: user1, name: "Dictée 3", min_words: 100, max_words: 200)
 
     user1_dictations = Dictation.for_user(user1)
     assert_equal 2, user1_dictations.count
@@ -96,7 +108,7 @@ class DictationTest < ActiveSupport::TestCase
   end
 
   test "should destroy dictations when user is destroyed" do
-    dictation = Dictation.create!(user: @user, min_words: 50, max_words: 100)
+    dictation = Dictation.create!(user: @user, name: "Dictée à détruire", min_words: 50, max_words: 100)
     dictation_id = dictation.id
 
     @user.destroy

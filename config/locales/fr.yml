@@ -68,6 +68,7 @@ fr:
       title: "Mes dictées"
       new_dictation: "Nouvelle dictée"
       no_dictations: "Aucune dictée pour le moment"
+      name: "Nom"
       level: "Niveau"
       min_words: "Mots min"
       max_words: "Mots max"
@@ -76,6 +77,7 @@ fr:
       view: "Voir"
     new:
       title: "Nouvelle dictée"
+      name: "Nom de la dictée"
       level: "Niveau"
       min_words: "Nombre minimum de mots"
       max_words: "Nombre maximum de mots"
