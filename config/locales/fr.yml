@@ -30,9 +30,12 @@
 fr:
   hello: "Bonjour le monde"
   application:
-    title: "Dictation App"
-    welcome: "Bienvenue sur Dictation App"
+    title: "Dictio"
+    welcome: "Bienvenue sur Dictio"
     logged_in_as: "Vous êtes connecté en tant que :"
+  languages:
+    fr: "Français"
+    en: "Anglais"
   sessions:
     require_login: "Vous devez vous connecter pour accéder à cette page"
     login_success: "Connexion réussie"
@@ -46,6 +49,8 @@ fr:
     signup_link: "Créer un compte"
   users:
     create_success: "Compte créé avec succès"
+    update_success: "Profil mis à jour avec succès"
+    edit_profile: "Éditer mon profil"
     email: "Email"
     password: "Mot de passe"
     password_confirmation: "Confirmation du mot de passe"
@@ -53,11 +58,17 @@ fr:
     signup: "Créer un compte"
     already_have_account: "Déjà un compte ?"
     login_link: "Se connecter"
+    edit:
+      title: "Éditer mon profil"
+      update: "Mettre à jour"
+      cancel: "Annuler"
+      password_optional: "laisser vide pour ne pas changer"
   dictations:
     index:
       title: "Mes dictées"
       new_dictation: "Nouvelle dictée"
       no_dictations: "Aucune dictée pour le moment"
+      name: "Nom"
       level: "Niveau"
       min_words: "Mots min"
       max_words: "Mots max"
@@ -66,14 +77,23 @@ fr:
       view: "Voir"
     new:
       title: "Nouvelle dictée"
+      name: "Nom de la dictée"
       level: "Niveau"
       min_words: "Nombre minimum de mots"
       max_words: "Nombre maximum de mots"
+      min_sentences: "Nombre minimum de phrases"
+      max_sentences: "Nombre maximum de phrases"
       requested_words: "Mots imposés (séparés par des virgules)"
       requested_rules: "Règles d'orthographe/grammaire"
       create: "Créer la dictée"
       cancel: "Annuler"
       select_level: "Sélectionner un niveau"
+      add_min_words: "Ajouter nombre minimum de mots"
+      add_max_words: "Ajouter nombre maximum de mots"
+      add_min_sentences: "Ajouter nombre minimum de phrases"
+      add_max_sentences: "Ajouter nombre maximum de phrases"
+      add_requested_words: "Ajouter mots imposés"
+      add_requested_rules: "Ajouter règles d'orthographe/grammaire"
     levels:
       CP: "CP"
       CE1: "CE1"
@@ -93,6 +113,8 @@ fr:
       level: "Niveau"
       min_words: "Nombre minimum de mots"
       max_words: "Nombre maximum de mots"
+      min_sentences: "Nombre minimum de phrases"
+      max_sentences: "Nombre maximum de phrases"
       requested_words: "Mots imposés"
       requested_rules: "Règles d'orthographe/grammaire"
       content: "Contenu"
@@ -109,6 +131,9 @@ fr:
       user_prompt_word_count_between: "La dictée doit contenir entre %{min_words} et %{max_words} mots."
       user_prompt_word_count_min: "La dictée doit contenir au moins %{min_words} mots."
       user_prompt_word_count_max: "La dictée doit contenir au plus %{max_words} mots."
+      user_prompt_sentence_count_between: "La dictée doit contenir entre %{min_sentences} et %{max_sentences} phrases."
+      user_prompt_sentence_count_min: "La dictée doit contenir au moins %{min_sentences} phrases."
+      user_prompt_sentence_count_max: "La dictée doit contenir au plus %{max_sentences} phrases."
       user_prompt_requested_words: "Les mots suivants doivent être inclus dans la dictée : %{words}."
       user_prompt_requested_rules: "La dictée doit mettre en pratique les règles suivantes : %{rules}."
       user_prompt_final: "Le texte doit être cohérent, adapté au niveau scolaire et prêt à être dicté. Retourne UNIQUEMENT le texte de la dictée, sans aucune explication ni commentaire."
@@ -148,4 +173,15 @@ fr:
               not_an_integer: "Le nombre maximum de mots doit être un nombre entier"
               greater_than: "Le nombre maximum de mots doit être supérieur à 0"
               must_be_greater_than_min_words: "Le nombre maximum de mots doit être supérieur ou égal au nombre minimum de mots"
+            min_sentences:
+              blank: "Le nombre minimum de phrases ne peut pas être vide"
+              not_a_number: "Le nombre minimum de phrases doit être un nombre"
+              not_an_integer: "Le nombre minimum de phrases doit être un nombre entier"
+              greater_than: "Le nombre minimum de phrases doit être supérieur à 0"
+            max_sentences:
+              blank: "Le nombre maximum de phrases ne peut pas être vide"
+              not_a_number: "Le nombre maximum de phrases doit être un nombre"
+              not_an_integer: "Le nombre maximum de phrases doit être un nombre entier"
+              greater_than: "Le nombre maximum de phrases doit être supérieur à 0"
+              must_be_greater_than_min_sentences: "Le nombre maximum de phrases doit être supérieur ou égal au nombre minimum de phrases"
 

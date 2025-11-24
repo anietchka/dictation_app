@@ -1,9 +1,14 @@
-<div class="w-full max-w-2xl mx-auto">
+<div class="w-full max-w-2xl mx-auto" data-controller="dictation-form">
   <h1 class="text-2xl font-bold mb-6"><%= t("dictations.new.title") %></h1>
 
   <%= form_with model: @dictation, url: dictations_path, local: true, class: "space-y-4" do |form| %>
     <% if @dictation.errors.any? %>
-      <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
+      <div
+        class="
+          bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md
+          mb-4
+        "
+      >
         <ul class="list-disc list-inside">
           <% @dictation.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -13,34 +18,168 @@
     <% end %>
 
     <div>
-      <%= form.label :level, t("dictations.new.level"), class: "block text-sm font-medium mb-1" %>
-      <%= form.select :level, options_for_select(dictation_levels.map { |level| [t("dictations.levels.#{level}", default: level), level] }, @dictation.level), { prompt: t("dictations.new.select_level") }, { class: "w-full px-3 py-2 border border-gray-300 rounded-md" } %>
+      <%= form.label :name, t("dictations.new.name"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.text_field :name, required: true, class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" %>
     </div>
 
     <div>
-      <%= form.label :min_words, t("dictations.new.min_words"), class: "block text-sm font-medium mb-1" %>
-      <%= form.number_field :min_words, min: 1, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+      <%= form.label :level, t("dictations.new.level"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.select :level, options_for_select(dictation_levels.map { |level| [t("dictations.levels.#{level}", default: level), level] }, @dictation.level), { prompt: t("dictations.new.select_level") }, { class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" } %>
     </div>
 
-    <div>
-      <%= form.label :max_words, t("dictations.new.max_words"), class: "block text-sm font-medium mb-1" %>
-      <%= form.number_field :max_words, min: 1, class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+    <%# Min words - optional field %>
+    <div
+      data-field-id="min_words"
+      data-dictation-form-target="optionalField"
+      class="hidden"
+    >
+      <%= form.label :min_words, t("dictations.new.min_words"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.number_field :min_words, min: 1, class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" %>
     </div>
 
-    <div>
-      <%= form.label :requested_words, t("dictations.new.requested_words"), class: "block text-sm font-medium mb-1" %>
-      <%= form.text_area :requested_words, rows: 3, placeholder: "ex: maison, école, jardin", class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+    <button
+      type="button"
+      data-field-id="min_words"
+      data-dictation-form-target="addButton"
+      data-action="click->dictation-form#toggleField"
+      data-dictation-form-field-param="min_words"
+      class="
+        bg-white text-[#3A7BD5] border border-[#3A7BD5] rounded-md px-4 py-2
+        flex items-center gap-2 hover:bg-[#A9D1FF] transition-colors mb-2
+      "
+    >
+      <span class="text-2xl font-bold">+</span>
+      <span><%= t("dictations.new.add_min_words") %></span>
+    </button>
+
+    <%# Max words - optional field %>
+    <div
+      data-field-id="max_words"
+      data-dictation-form-target="optionalField"
+      class="hidden"
+    >
+      <%= form.label :max_words, t("dictations.new.max_words"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.number_field :max_words, min: 1, class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" %>
     </div>
 
-    <div>
-      <%= form.label :requested_rules, t("dictations.new.requested_rules"), class: "block text-sm font-medium mb-1" %>
-      <%= form.text_area :requested_rules, rows: 3, placeholder: "ex: accord du participe passé, pluriel des noms", class: "w-full px-3 py-2 border border-gray-300 rounded-md" %>
+    <button
+      type="button"
+      data-field-id="max_words"
+      data-dictation-form-target="addButton"
+      data-action="click->dictation-form#toggleField"
+      data-dictation-form-field-param="max_words"
+      class="
+        bg-white text-[#3A7BD5] border border-[#3A7BD5] rounded-md px-4 py-2
+        flex items-center gap-2 hover:bg-[#A9D1FF] transition-colors mb-2
+      "
+    >
+      <span class="text-2xl font-bold">+</span>
+      <span><%= t("dictations.new.add_max_words") %></span>
+    </button>
+
+    <%# Min sentences - optional field %>
+    <div
+      data-field-id="min_sentences"
+      data-dictation-form-target="optionalField"
+      class="hidden"
+    >
+      <%= form.label :min_sentences, t("dictations.new.min_sentences"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.number_field :min_sentences, min: 1, class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" %>
     </div>
 
-    <div class="flex gap-4">
-      <%= form.submit t("dictations.new.create"), class: "bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700" %>
-      <%= link_to t("dictations.new.cancel"), dictations_path, class: "bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300" %>
+    <button
+      type="button"
+      data-field-id="min_sentences"
+      data-dictation-form-target="addButton"
+      data-action="click->dictation-form#toggleField"
+      data-dictation-form-field-param="min_sentences"
+      class="
+        bg-white text-[#3A7BD5] border border-[#3A7BD5] rounded-md px-4 py-2
+        flex items-center gap-2 hover:bg-[#A9D1FF] transition-colors mb-2
+      "
+    >
+      <span class="text-2xl font-bold">+</span>
+      <span><%= t("dictations.new.add_min_sentences") %></span>
+    </button>
+
+    <%# Max sentences - optional field %>
+    <div
+      data-field-id="max_sentences"
+      data-dictation-form-target="optionalField"
+      class="hidden"
+    >
+      <%= form.label :max_sentences, t("dictations.new.max_sentences"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.number_field :max_sentences, min: 1, class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" %>
+    </div>
+
+    <button
+      type="button"
+      data-field-id="max_sentences"
+      data-dictation-form-target="addButton"
+      data-action="click->dictation-form#toggleField"
+      data-dictation-form-field-param="max_sentences"
+      class="
+        bg-white text-[#3A7BD5] border border-[#3A7BD5] rounded-md px-4 py-2
+        flex items-center gap-2 hover:bg-[#A9D1FF] transition-colors mb-2
+      "
+    >
+      <span class="text-2xl font-bold">+</span>
+      <span><%= t("dictations.new.add_max_sentences") %></span>
+    </button>
+
+    <%# Requested words - optional field %>
+    <div
+      data-field-id="requested_words"
+      data-dictation-form-target="optionalField"
+      class="hidden"
+    >
+      <%= form.label :requested_words, t("dictations.new.requested_words"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.text_area :requested_words, rows: 3, placeholder: "ex: maison, école, jardin", class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" %>
+    </div>
+
+    <button
+      type="button"
+      data-field-id="requested_words"
+      data-dictation-form-target="addButton"
+      data-action="click->dictation-form#toggleField"
+      data-dictation-form-field-param="requested_words"
+      class="
+        bg-white text-[#3A7BD5] border border-[#3A7BD5] rounded-md px-4 py-2
+        flex items-center gap-2 hover:bg-[#A9D1FF] transition-colors mb-2
+      "
+    >
+      <span class="text-2xl font-bold">+</span>
+      <span><%= t("dictations.new.add_requested_words") %></span>
+    </button>
+
+    <%# Requested rules - optional field %>
+    <div
+      data-field-id="requested_rules"
+      data-dictation-form-target="optionalField"
+      class="hidden"
+    >
+      <%= form.label :requested_rules, t("dictations.new.requested_rules"), class: "block text-sm font-medium mb-1 text-[#333333]" %>
+      <%= form.text_area :requested_rules, rows: 3, placeholder: "ex: accord du participe passé, pluriel des noms", class: "w-full px-3 py-2 border border-[#D5DCE5] rounded-md focus:ring-2 focus:ring-[#3A7BD5] focus:border-[#3A7BD5]" %>
+    </div>
+
+    <button
+      type="button"
+      data-field-id="requested_rules"
+      data-dictation-form-target="addButton"
+      data-action="click->dictation-form#toggleField"
+      data-dictation-form-field-param="requested_rules"
+      class="
+        bg-white text-[#3A7BD5] border border-[#3A7BD5] rounded-md px-4 py-2
+        flex items-center gap-2 hover:bg-[#A9D1FF] transition-colors mb-2
+      "
+    >
+      <span class="text-2xl font-bold">+</span>
+      <span><%= t("dictations.new.add_requested_rules") %></span>
+    </button>
+
+    <div class="flex gap-4 mt-6">
+      <%= form.submit t("dictations.new.create"), class: "bg-[#3A7BD5] text-white py-2 px-4 rounded-md hover:bg-[#2d6bb8] transition-colors" %>
+      <%= link_to t("dictations.new.cancel"), dictations_path, class: "bg-white text-[#3A7BD5] border border-[#3A7BD5] py-2 px-4 rounded-md hover:bg-[#A9D1FF] transition-colors" %>
     </div>
   <% end %>
 </div>
-

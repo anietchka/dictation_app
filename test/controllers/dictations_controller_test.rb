@@ -6,6 +6,7 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
     @other_user = User.create!(email: "other@example.com", password: "password123", password_confirmation: "password123")
     @dictation = Dictation.create!(
       user: @user,
+      name: "Ma dictée de test",
       level: "CE1",
       min_words: 50,
       max_words: 100,
@@ -58,6 +59,7 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
       assert_difference "Dictation.count", 1 do
         post dictations_path, params: {
           dictation: {
+            name: "Nouvelle dictée",
             level: "CE2",
             min_words: 75,
             max_words: 150,
@@ -79,6 +81,7 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
       assert_difference "Dictation.count", 1 do
         post dictations_path, params: {
           dictation: {
+            name: "Dictée simple",
             level: "CE2"
           }
         }
@@ -88,12 +91,29 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to dictation_path(Dictation.last)
   end
 
+  test "should not create dictation without name" do
+    post sessions_path, params: { email: @user.email, password: "password123" }
+
+    assert_no_difference "Dictation.count" do
+      post dictations_path, params: {
+        dictation: {
+          level: "CE2",
+          min_words: 75,
+          max_words: 150
+        }
+      }
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test "should not create dictation with invalid attributes" do
     post sessions_path, params: { email: @user.email, password: "password123" }
 
     assert_no_difference "Dictation.count" do
       post dictations_path, params: {
         dictation: {
+          name: "Dictée invalide",
           level: "CE2",
           min_words: 100,
           max_words: 50
@@ -111,6 +131,7 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
       assert_no_difference "Dictation.count" do
         post dictations_path, params: {
           dictation: {
+            name: "Dictée avec erreur API",
             level: "CE2",
             min_words: 75,
             max_words: 150
@@ -137,6 +158,7 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
   test "should only show user's own dictations in index" do
     other_dictation = Dictation.create!(
       user: @other_user,
+      name: "Dictée autre utilisateur index",
       level: "CM1",
       min_words: 100,
       max_words: 200
@@ -158,6 +180,7 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
       assert_difference "Dictation.count", 1 do
         post dictations_path, params: {
           dictation: {
+            name: "Dictée avec user_id",
             level: "CE2",
             user_id: @other_user.id
           }
@@ -174,6 +197,7 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
   test "should not allow accessing other user's dictation via direct ID" do
     other_dictation = Dictation.create!(
       user: @other_user,
+      name: "Dictée autre utilisateur direct",
       level: "CM1",
       min_words: 100,
       max_words: 200
@@ -188,9 +212,9 @@ class DictationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should verify scope for_user filters correctly" do
     # Create additional dictations for both users (setup already created one for @user)
-    Dictation.create!(user: @user, level: "CE2", min_words: 75, max_words: 150)
-    Dictation.create!(user: @other_user, level: "CM1", min_words: 100, max_words: 200)
-    Dictation.create!(user: @other_user, level: "CM2", min_words: 150, max_words: 250)
+    Dictation.create!(user: @user, name: "Dictée 1", level: "CE2", min_words: 75, max_words: 150)
+    Dictation.create!(user: @other_user, name: "Dictée 2", level: "CM1", min_words: 100, max_words: 200)
+    Dictation.create!(user: @other_user, name: "Dictée 3", level: "CM2", min_words: 150, max_words: 250)
 
     # Verify scope works correctly
     user_dictations = Dictation.for_user(@user)
