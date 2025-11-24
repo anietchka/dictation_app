@@ -6,11 +6,16 @@ export default class extends Controller {
   toggle(event) {
     event.preventDefault()
     event.stopPropagation()
-    this.menuTarget.classList.toggle("hidden")
+    const isHidden = this.menuTarget.classList.contains("hidden")
+    if (isHidden) {
+      this.menuTarget.classList.remove("hidden")
+    } else {
+      this.menuTarget.classList.add("hidden")
+    }
   }
 
   close(event) {
-    if (!this.element.contains(event.target)) {
+    if (!this.element.contains(event.target) && !this.menuTarget.classList.contains("hidden")) {
       this.menuTarget.classList.add("hidden")
     }
   }
